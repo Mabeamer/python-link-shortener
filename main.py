@@ -1,10 +1,10 @@
 import secrets
 import validators
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Depends
 from sqlalchemy.orm import Session
 
 
-from . import schemas
+from . import models, schemas
 from .database import SessionLocal, engine
 
 def raise_bad_request(message):
@@ -40,5 +40,8 @@ def create_url(url: schemas.URLBase, db: Session = Depends(get_db)):
     db.add(db_url)
     db.commit()
     db.refresh(db_url)
-    return f"TODO: CREATE DATABASE ENTERY FOR: {url.target_url}"
-
+    db_url.url = key
+    db_url.admin_url = secret_key
+    #?
+    #return f"TODO: CREATE DATABASE ENTERY FOR: {url.target_url}"
+    return db_url

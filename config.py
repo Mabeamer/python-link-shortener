@@ -1,6 +1,7 @@
 
 #Data validation and "settings management"?
 #go back and add .env file
+#PS> .\venv\Scripts\activate
 from pydantic import BaseSettings
 #"least recently used" strategy, keeps data inside a cache so we do not have to reuse?
 from functools import lru_cache
@@ -20,5 +21,5 @@ def get_settings() -> Settings:
     print(f"Load settings for: {settings.env_name}")
     return settings
 
-
+#
 
